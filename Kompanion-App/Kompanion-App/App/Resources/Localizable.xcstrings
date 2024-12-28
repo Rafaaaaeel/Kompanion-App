@@ -1,0 +1,112 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "1/3" : {
+
+    },
+    "5:00" : {
+
+    },
+    "15 Strike" : {
+
+    },
+    "All" : {
+
+    },
+    "Days" : {
+
+    },
+    "DONE" : {
+
+    },
+    "House" : {
+
+    },
+    "Icon" : {
+
+    },
+    "Math" : {
+
+    },
+    "My subjects" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My subjects"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minhas matérias"
+          }
+        }
+      }
+    },
+    "Name" : {
+
+    },
+    "Pause" : {
+
+    },
+    "Select your subject and\nmake it done" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione a matéria e \nfaça acontecer"
+          }
+        }
+      }
+    },
+    "Studying goals" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studying goals"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meta de estudo"
+          }
+        }
+      }
+    },
+    "Subject" : {
+
+    },
+    "Subject Creation" : {
+
+    },
+    "Subjects" : {
+
+    },
+    "Today" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoje"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -2,16 +2,17 @@ import SwiftUI
 
 struct SubjectsView: View {
     
+    @Environment(\.modelContext) private var modelContext
     @ObservedObject private var viewModel = SubjectsViewModel()
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack {
-                    SubjectSectionsView(title: "Today")
-                    SubjectSectionsView(title: "All")
-                }
+        ScrollView {
+            VStack {
+                SubjectSectionsView(title: "Today", subjects: viewModel.subjects)
+                SubjectSectionsView(title: "All", subjects: viewModel.subjects)
             }
+        }.onAppear() {
+            viewModel.fetchSubjects(modelContext)
         }
     }
 }

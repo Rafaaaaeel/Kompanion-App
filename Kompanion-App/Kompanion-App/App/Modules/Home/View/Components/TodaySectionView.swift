@@ -10,7 +10,7 @@ struct TodaySectionView : View {
                 .padding()
             
             ScrollView(.horizontal) {
-                HStack(spacing: 8) {
+                HStack(spacing: 0) {
                     CardView()
                     CardView()
                     CardView()
@@ -18,7 +18,6 @@ struct TodaySectionView : View {
                 }
             }
             .scrollIndicators(.never)
-            .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0))
         }
     }
 }

@@ -6,8 +6,13 @@ struct SubjectCardView : View {
     
     @State private var taping = false
     
-    init(onTouch: @escaping () -> Void = {}) {
+    private let iconName: String
+    private let title: String
+    
+    init(title: String, iconName: String, onTouch: @escaping () -> Void = {}) {
         self.onTouch = onTouch
+        self.title = title
+        self.iconName = iconName
     }
     
     var body: some View {
@@ -18,11 +23,11 @@ struct SubjectCardView : View {
             VStack {
                 HStack {
                     HStack {
-                        Image(systemName: "pencil")
+                        Image(systemName: iconName)
                             .foregroundStyle(Color.white)
                         Spacer()
                         KTitle()
-                            .text("Math")
+                            .text(LocalizedStringKey(title))
                             .font(.h5)
                             .rounded(true)
                         Spacer()
@@ -67,11 +72,11 @@ struct SubjectCardView : View {
     }
     
     func onTouch(_ action: @escaping () -> Void) -> SubjectCardView {
-        return .init(onTouch: action)
+        return .init(title: self.title, iconName: self.iconName, onTouch: action)
     }
 }
 
 
 #Preview {
-    SubjectCardView()
+    SubjectCardView(title: "Test", iconName: "cart")
 }

@@ -18,6 +18,7 @@ struct CardView : View {
         .frame(width: 161, height: 43)
         .background(Color.blue)
         .clipShape(.rect(cornerRadius: 10))
+        .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 0))
     }
 }
 

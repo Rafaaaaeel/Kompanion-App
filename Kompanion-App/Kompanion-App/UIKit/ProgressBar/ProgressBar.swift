@@ -29,14 +29,17 @@ struct KProgressBar : View {
                 }
             }
         } else {
-            ZStack(alignment: .leading){
+            ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 3)
-                    .frame(width: .infinity, height: 6)
+                    .frame(maxWidth: .infinity, minHeight: 6, maxHeight: 6) // Define maxWidth ao invés de width
                     .foregroundStyle(Color.gray)
+
                 RoundedRectangle(cornerRadius: 3)
-                    .frame(width: 0, height: 6)
+                    .frame(width: 50, height: 6) // Define a largura e altura explicitamente
                     .foregroundStyle(Color.orange)
             }
+            .frame(maxWidth: .infinity) // Garante que o ZStack expanda ao máximo
+
             
         }
         

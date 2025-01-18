@@ -31,6 +31,9 @@
     "Math" : {
 
     },
+    "More" : {
+
+    },
     "My subjects" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -47,9 +50,6 @@
           }
         }
       }
-    },
-    "Name" : {
-
     },
     "Pause" : {
 
@@ -81,13 +81,13 @@
         }
       }
     },
-    "Subject" : {
-
-    },
     "Subject Creation" : {
 
     },
     "Subjects" : {
+
+    },
+    "Tap to Show Bottom Sheet" : {
 
     },
     "Today" : {

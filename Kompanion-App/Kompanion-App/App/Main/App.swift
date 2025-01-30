@@ -14,7 +14,8 @@ struct MainApp: App {
     private var subjectContainer: ModelContainer = {
         do {
             let scheme = Schema([Subject.self])
-            let container = try ModelContainer(for: scheme, configurations: [])
+            let configuration = ModelConfiguration(isStoredInMemoryOnly: Settings.instance.isPreview)
+            let container = try ModelContainer(for: scheme, configurations: [configuration])
             return container
         } catch {
             fatalError("Failed to create ModelContainer: \(error)")
@@ -36,6 +37,17 @@ struct MainApp: App {
                         Text("Subjects")
                     }
                     .modelContainer(subjectContainer)
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "list.bullet.rectangle")
+                        Text("Reminders")
+                    }
+                    .modelContainer(subjectContainer)
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "gearshape")
+                        Text("Config")
+                    }
             }
         }
     }

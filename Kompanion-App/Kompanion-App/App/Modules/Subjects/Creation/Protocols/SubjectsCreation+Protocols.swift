@@ -33,7 +33,7 @@ extension SubjectCreationRepositoryProtocol {
 
 protocol SubjectCreationViewModelInput {
     func didText(_ name: String)
-    func didSelect(week day: String)
+    func didSelect(week day: String, selected: Bool)
     func didPick(_ icon: String)
     func didCreateSubject(_ context: ModelContext)
 }

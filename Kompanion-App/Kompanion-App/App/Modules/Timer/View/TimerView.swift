@@ -16,7 +16,9 @@ struct TimerView : View {
                 .image(systemName: "pause.fill")
                 .label("Pause")
             
-        }.padding()
+        }
+        .padding()
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 

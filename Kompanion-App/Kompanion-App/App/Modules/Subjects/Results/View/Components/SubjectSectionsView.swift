@@ -7,14 +7,19 @@ struct SubjectSectionsView : View {
     private let subjects: [Subject]
     private let adaptativeColumns = [GridItem(.adaptive(minimum: 170))]
     
+    private let onDismiss: () -> Void
+    private let onDelete: (Int) -> Void
+    
     private var length: Int {
         subjects.count <= 0 ? 1 : subjects.count + 1
     }
     var title: LocalizedStringKey
     
-    init(title: LocalizedStringKey, subjects: [Subject]) {
+    init(title: LocalizedStringKey, subjects: [Subject], onDismiss: @escaping () -> Void, onDelete: @escaping (Int) -> Void) {
         self.title = title
         self.subjects = subjects
+        self.onDismiss = onDismiss
+        self.onDelete = onDelete
     }
     
     var body: some View {
@@ -34,7 +39,13 @@ struct SubjectSectionsView : View {
                                     isShowingCreation.toggle()
                                 }
                         } else {
-                            SubjectCardView(title: subjects[index - 1].name, iconName: subjects[index - 1].icon)
+                            NavigationLink {
+                                TimerView()
+                            } label: {
+                                SubjectCardView(title: subjects[index - 1].name, iconName: subjects[index - 1].icon, onDelete: {
+                                    onDelete(index - 1)
+                                })
+                            }
                         }
                     }
                 }
@@ -44,6 +55,7 @@ struct SubjectSectionsView : View {
         .sheet(isPresented: $isShowingCreation) {
             SubjectCreationView(action: {
                 isShowingCreation.toggle()
+                onDismiss()
             })
                 .presentationDetents([.medium])
         }
@@ -51,7 +63,3 @@ struct SubjectSectionsView : View {
     }
 }
 
-
-#Preview {
-//    SubjectSectionsView(title: "Today")
-}

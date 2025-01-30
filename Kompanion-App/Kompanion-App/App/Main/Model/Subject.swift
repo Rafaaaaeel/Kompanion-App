@@ -9,10 +9,10 @@ class Subject {
     var creationDate: Date
     var maxStrike: Int
     var currentStrike: Int
-    var daysOfTheWeek: [String]
+    var daysOfTheWeek: [String: Bool]
     var icon: String
     
-    init(id: String = UUID().uuidString, name: String, creationDate: Date = Date(), maxStrike: Int = 0, currentStrike: Int = 0, daysOfTheWeek: [String], icon: String) {
+    init(id: String = UUID().uuidString, name: String, creationDate: Date = Date(), maxStrike: Int = 0, currentStrike: Int = 0, daysOfTheWeek: [String: Bool], icon: String) {
         self.id = id
         self.name = name
         self.creationDate = creationDate

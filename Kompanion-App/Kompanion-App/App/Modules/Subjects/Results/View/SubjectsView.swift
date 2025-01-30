@@ -6,14 +6,40 @@ struct SubjectsView: View {
     @ObservedObject private var viewModel = SubjectsViewModel()
     
     var body: some View {
-        ScrollView {
-            VStack {
-                SubjectSectionsView(title: "Today", subjects: viewModel.subjects)
-                SubjectSectionsView(title: "All", subjects: viewModel.subjects)
+        NavigationView {
+            ScrollView {
+                VStack {
+                    HStack {
+                        Spacer()
+                        KTextButton("Edit", isSelectionButton: false, selected: false) { _, _ in
+                            
+                        }
+                    }.padding(.trailing)
+
+                    SubjectSectionsView(title: "Today", subjects: viewModel.todaysSubjects) {
+                        fetchSubjects()
+                    } onDelete: { index in
+                        deleteSubject(at: index)
+                    }
+                    SubjectSectionsView(title: "All", subjects: viewModel.allSubjects) {
+                        fetchSubjects()
+                    } onDelete: { index in
+                        deleteSubject(at: index)
+                    }
+                }
+            }.onAppear() {
+                fetchSubjects()
             }
-        }.onAppear() {
-            viewModel.fetchSubjects(modelContext)
         }
+        
+    }
+    
+    private func fetchSubjects() {
+        viewModel.fetchSubjects(modelContext)
+    }
+    
+    private func deleteSubject(at index: Int) {
+        viewModel.deleleteSubject(modelContext, at: index)
     }
 }
 

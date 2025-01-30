@@ -3,7 +3,8 @@ import SwiftData
 
 class SubjectsViewModel: ObservableObject {
     
-    @Published var subjects: [Subject] = []
+    @Published var allSubjects: [Subject] = []
+    @Published var todaysSubjects: [Subject] = []
     
     private var repository: SubjectsRepositoryProtocol
     
@@ -15,12 +16,26 @@ class SubjectsViewModel: ObservableObject {
     func fetchSubjects(_ context: ModelContext) {
         repository.fetchSubjects(context)
     }
+    
+    func deleleteSubject(_ context: ModelContext, at index: Int) {
+        repository.delete(context, subject: allSubjects[index])
+    }
+    
 }
 
 extension SubjectsViewModel : SubjectsRepositoryOutput {
     
+    func deleteSubjectSuccess(_ context: ModelContext) {
+        repository.fetchSubjects(context)
+    }
+    
+    func deleteSubjectFailure(error: any Error) {
+        print("Not Deleted")
+    }
+    
     func fetchSubjectsSuccess(_ subjects: [Subject]) {
-        self.subjects = subjects
+        self.todaysSubjects = subjects.subjectsForToday()
+        self.allSubjects = subjects
     }
     
     func fetchSubjectsFailure(_ error: any Error) {

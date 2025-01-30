@@ -18,7 +18,9 @@ struct KTextField : View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(title)
+            if !title.isEmpty {
+                Text(title)
+            }
 
             ZStack {
                 HStack {

@@ -16,10 +16,22 @@
     "All" : {
 
     },
+    "Config" : {
+
+    },
     "Days" : {
 
     },
     "DONE" : {
+
+    },
+    "Edit" : {
+
+    },
+    "fa" : {
+
+    },
+    "Filter" : {
 
     },
     "House" : {
@@ -52,6 +64,9 @@
       }
     },
     "Pause" : {
+
+    },
+    "Reminders" : {
 
     },
     "Select your subject and\nmake it done" : {

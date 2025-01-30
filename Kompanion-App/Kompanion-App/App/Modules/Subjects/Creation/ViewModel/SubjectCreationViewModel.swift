@@ -4,12 +4,11 @@ import SwiftUICore
 
 class SubjectCreationViewModel: SubjectCreationViewModelProtocol {
     
-    @Published internal var nameIsValid : Bool = false
-    @Published internal var iconIsValid : Bool = false
-    @Published internal var daysIsValid : Bool = false
+    @Published internal var isValidToSave : Bool = false
+    
     @Published private var name: String = ""
     @Published private var icon: String = ""
-    @Published private var days: [String] = []
+    @Published private var days: [String: Bool] = [:]
     
     private let repository: CreationRepository
     
@@ -21,21 +20,24 @@ class SubjectCreationViewModel: SubjectCreationViewModelProtocol {
     // TODO: validation of each letter
     func didText(_ name: String) {
         self.name = name
+        
+        isValid()
     }
     
     // TODO: manage selection of days of the week
-    func didSelect(week day: String) {
-        self.days.append(day)
+    func didSelect(week day: String, selected: Bool) {
+        self.days[day] = selected
+        
+        isValid()
     }
     
     func didPick(_ icon: String) {
         self.icon = icon
+        
+        isValid()
     }
     
     func didCreateSubject(_ context: ModelContext) {
-        
-        guard isValid() else { return }
-        
         repository.create(
             Subject(name: name,
                     daysOfTheWeek: days,
@@ -58,13 +60,8 @@ extension SubjectCreationViewModel: SubjectCreationRepositoryProtocolOutput {
 
 extension SubjectCreationViewModel {
     
-    private func isValid() -> Bool {
-        
-        self.nameIsValid = isNameValid()
-        self.iconIsValid = isIconValid()
-        self.daysIsValid = isDaysValid()
-        
-        return nameIsValid && iconIsValid && daysIsValid
+    private func isValid() {
+        isValidToSave = isNameValid() && isIconValid() && isDaysValid()
     }
     
     private func isNameValid() -> Bool {

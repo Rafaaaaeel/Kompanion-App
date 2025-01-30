@@ -23,7 +23,7 @@ struct SubjectCreationView : View {
                         viewModel.didPick(icon)
                     }
                     DaysOfTheWeekView() { day, isSelected in
-                        viewModel.didSelect(week: day)
+                        viewModel.didSelect(week: day, selected: isSelected)
                     }
                     Spacer()
                 }
@@ -32,12 +32,9 @@ struct SubjectCreationView : View {
                     .label("DONE")
                     .onTouch {
                         viewModel.didCreateSubject(context)
-                        
-                        if viewModel.daysIsValid && viewModel.nameIsValid && viewModel.iconIsValid {
-                            action()
-                        }
-                        
+                        action()
                     }
+                    .isEnabled(!viewModel.isValidToSave)
                     .padding()
             }
             .navigationBarTitle("Subject Creation", displayMode: .inline)

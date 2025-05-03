@@ -5,17 +5,18 @@ struct SubjectCardView : View {
     private let onTouch: () -> Void
     private let onDelete: () -> Void
     
-    @State private var isEditMode = true
     @State private var taping = false
     
     private let iconName: String
     private let title: String
+    private var isEditMode: Bool
     
-    init(title: String, iconName: String, onTouch: @escaping () -> Void = {}, onDelete: @escaping () -> Void = {}) {
+    init(title: String, iconName: String, isEditMode: Bool = false, onTouch: @escaping () -> Void = {}, onDelete: @escaping () -> Void = {}) {
         self.onTouch = onTouch
         self.onDelete = onDelete
         self.title = title
         self.iconName = iconName
+        self.isEditMode = isEditMode
     }
     
     var body: some View {
@@ -74,11 +75,16 @@ struct SubjectCardView : View {
                 }
             }
         }
+        .simultaneousGesture(TapGesture().onEnded {
+            if isEditMode {
+                onTouch()
+            }
+        })
         .opacity(taping ? 0.75 : 1)
     }
     
     func onTouch(_ action: @escaping () -> Void) -> SubjectCardView {
-        return .init(title: self.title, iconName: self.iconName, onTouch: action)
+        return .init(title: self.title, iconName: self.iconName, isEditMode: self.isEditMode, onTouch: action, onDelete: self.onDelete)
     }
 }
 

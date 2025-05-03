@@ -32,7 +32,9 @@ struct SubjectCreationView : View {
                     .label("DONE")
                     .onTouch {
                         viewModel.didCreateSubject(context)
-                        action()
+                        if viewModel.isSuccess {
+                            action()
+                        }
                     }
                     .isEnabled(!viewModel.isValidToSave)
                     .padding()

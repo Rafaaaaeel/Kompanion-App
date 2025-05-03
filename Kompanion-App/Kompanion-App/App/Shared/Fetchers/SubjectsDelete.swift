@@ -14,8 +14,13 @@ protocol SubjectDeleteOutput {
 extension SubjectsDelete {
     
     func delete(_ context: ModelContext, subject: Subject) {
-        context.delete(subject)
-        deleteOutput?.deleteSubjectSuccess(context)
+        do {
+            context.delete(subject)
+            try context.save()
+            deleteOutput?.deleteSubjectSuccess(context)
+        } catch let error {
+            deleteOutput?.deleteSubjectFailure(error: error)
+        }
     }
     
 }

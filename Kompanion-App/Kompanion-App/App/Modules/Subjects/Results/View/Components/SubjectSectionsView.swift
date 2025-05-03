@@ -6,6 +6,7 @@ struct SubjectSectionsView : View {
     
     private let subjects: [Subject]
     private let adaptativeColumns = [GridItem(.adaptive(minimum: 170))]
+    private let isEditMode: Bool
     
     private let onDismiss: () -> Void
     private let onDelete: (Int) -> Void
@@ -15,9 +16,10 @@ struct SubjectSectionsView : View {
     }
     var title: LocalizedStringKey
     
-    init(title: LocalizedStringKey, subjects: [Subject], onDismiss: @escaping () -> Void, onDelete: @escaping (Int) -> Void) {
+    init(title: LocalizedStringKey, subjects: [Subject], isEditMode: Bool, onDismiss: @escaping () -> Void, onDelete: @escaping (Int) -> Void) {
         self.title = title
         self.subjects = subjects
+        self.isEditMode = isEditMode
         self.onDismiss = onDismiss
         self.onDelete = onDelete
     }
@@ -39,12 +41,22 @@ struct SubjectSectionsView : View {
                                     isShowingCreation.toggle()
                                 }
                         } else {
-                            NavigationLink {
-                                TimerView()
-                            } label: {
-                                SubjectCardView(title: subjects[index - 1].name, iconName: subjects[index - 1].icon, onDelete: {
+                            if isEditMode {
+                                SubjectCardView(title: subjects[index - 1].name, iconName: subjects[index - 1].icon, isEditMode: isEditMode, onDelete: {
                                     onDelete(index - 1)
-                                })
+                                }).onTouch {
+                                    isShowingCreation.toggle()
+                                }
+                            } else {
+                                NavigationLink {
+                                    TimerView()
+                                } label: {
+                                    SubjectCardView(title: subjects[index - 1].name, iconName: subjects[index - 1].icon, isEditMode: isEditMode, onDelete: {
+                                        onDelete(index - 1)
+                                    }).onTouch {
+                                        isShowingCreation.toggle()
+                                    }
+                                }
                             }
                         }
                     }

@@ -4,76 +4,46 @@ import SwiftUICore
 
 class SubjectCreationViewModel: SubjectCreationViewModelProtocol {
     
-    @Published internal var isValidToSave : Bool = false
-    
-    @Published private var name: String = ""
-    @Published private var icon: String = ""
-    @Published private var days: [String: Bool] = [:]
+    @Published internal var model: SubjectCreationModel = .init()
+    @Published internal var isValidToSave: Bool = false
+    @Published internal var isSuccess: Bool = false
     
     private let repository: CreationRepository
     
     init(repository: CreationRepository = CreationRepository()) {
         self.repository = repository
         self.repository.ouput = self
+        
+        model.$isValidToSave
+                    .assign(to: &$isValidToSave)
+
     }
     
-    // TODO: validation of each letter
     func didText(_ name: String) {
-        self.name = name
-        
-        isValid()
+        model.didText(name)
     }
     
-    // TODO: manage selection of days of the week
     func didSelect(week day: String, selected: Bool) {
-        self.days[day] = selected
-        
-        isValid()
+        model.didSelect(week: day, selected: selected)
     }
     
     func didPick(_ icon: String) {
-        self.icon = icon
-        
-        isValid()
+        model.didPick(icon)
     }
     
     func didCreateSubject(_ context: ModelContext) {
-        repository.create(
-            Subject(name: name,
-                    daysOfTheWeek: days,
-                    icon: icon),
-            context: context)
+        repository.create(model.build(), context: context)
     }
 }
 
 extension SubjectCreationViewModel: SubjectCreationRepositoryProtocolOutput {
     
     func createSuccess() {
-        print("Created")
+        isSuccess = true
     }
     
     func createFailure() {
-        print("Failed")
-    }
-    
-}
-
-extension SubjectCreationViewModel {
-    
-    private func isValid() {
-        isValidToSave = isNameValid() && isIconValid() && isDaysValid()
-    }
-    
-    private func isNameValid() -> Bool {
-        return !name.isEmpty
-    }
-    
-    private func isIconValid() -> Bool {
-        return !icon.isEmpty
-    }
-    
-    private func isDaysValid() -> Bool {
-        return !days.isEmpty
+        isSuccess = false
     }
     
 }

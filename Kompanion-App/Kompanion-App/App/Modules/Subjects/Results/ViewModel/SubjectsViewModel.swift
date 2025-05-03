@@ -5,6 +5,8 @@ class SubjectsViewModel: ObservableObject {
     
     @Published var allSubjects: [Subject] = []
     @Published var todaysSubjects: [Subject] = []
+//    @Published var isLoading: Bool = false
+    @Published var isEditMode: Bool = false
     
     private var repository: SubjectsRepositoryProtocol
     

@@ -11,17 +11,17 @@ struct SubjectsView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        KTextButton("Edit", isSelectionButton: false, selected: false) { _, _ in
-                            
+                        KTextButton(viewModel.isEditMode ? "Save" : "Edit", isSelectionButton: false, selected: false) { _, _ in
+                            viewModel.isEditMode.toggle()
                         }
                     }.padding(.trailing)
 
-                    SubjectSectionsView(title: "Today", subjects: viewModel.todaysSubjects) {
+                    SubjectSectionsView(title: "Today", subjects: viewModel.todaysSubjects, isEditMode: viewModel.isEditMode) {
                         fetchSubjects()
                     } onDelete: { index in
                         deleteSubject(at: index)
                     }
-                    SubjectSectionsView(title: "All", subjects: viewModel.allSubjects) {
+                    SubjectSectionsView(title: "All", subjects: viewModel.allSubjects, isEditMode: viewModel.isEditMode) {
                         fetchSubjects()
                     } onDelete: { index in
                         deleteSubject(at: index)
